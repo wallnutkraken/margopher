@@ -11,21 +11,21 @@ import (
 	"strings"
 )
 
-type margopher struct {
+type Margopher struct {
 	states map[[2]string][]string
 }
 
-func New() *margopher {
-	return &margopher{}
+func New() *Margopher {
+	return &Margopher{}
 }
 
-func (m *margopher) ReadText(text string) string {
+func (m *Margopher) ReadText(text string) string {
 	m.parse(text)
 
 	return m.generate()
 }
 
-func (m *margopher) ReadFile(filePath string) string {
+func (m *Margopher) ReadFile(filePath string) string {
 	// Open the file
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -43,7 +43,7 @@ func (m *margopher) ReadFile(filePath string) string {
 	return m.generate()
 }
 
-func (m *margopher) ReadURL(URL string) string {
+func (m *Margopher) ReadURL(URL string) string {
 	// Open web page
 	doc, err := goquery.NewDocument(URL)
 	if err != nil {
@@ -59,13 +59,13 @@ func (m *margopher) ReadURL(URL string) string {
 	return m.generate()
 }
 
-func (m *margopher) StateDictionary() map[[2]string][]string {
+func (m *Margopher) StateDictionary() map[[2]string][]string {
 	return m.states
 }
 
 // Parse input text into states map
-func (m *margopher) parse(text string) {
-	// Initialize margopher.states map
+func (m *Margopher) parse(text string) {
+	// Initialize Margopher.states map
 	m.states = make(map[[2]string][]string)
 
 	words := strings.Split(text, " ")
@@ -83,8 +83,8 @@ func (m *margopher) parse(text string) {
 	}
 }
 
-// Generate margopher senetence based on a given length
-func (m *margopher) generate() string {
+// Generate Margopher senetence based on a given length
+func (m *Margopher) generate() string {
 	var sentence bytes.Buffer
 
 	// Initialize prefix with a random key
@@ -107,7 +107,7 @@ func (m *margopher) generate() string {
 }
 
 // Return a random prefix other than the one in the arguments
-func (m *margopher) getRandomPrefix(prefix [2]string) [2]string {
+func (m *Margopher) getRandomPrefix(prefix [2]string) [2]string {
 	// By default, Go orders keys randomly for maps
 	for key := range m.states {
 		if key != prefix {
